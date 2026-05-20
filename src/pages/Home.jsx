@@ -13,8 +13,6 @@ function Home() {
 
   const { data, loading, error } = useFetch(`/posts?_page=${page}&_limit=5`);
 
-  console.log(data);
-
   if (loading) return <Loader />;
 
   if (error) return <h1>{error}</h1>;
@@ -25,7 +23,7 @@ function Home() {
 
       <PostList posts={data || []} />
 
-      <Pagination setPage={setPage} />
+      <Pagination page={page} setPage={setPage} />
     </div>
   );
 }
