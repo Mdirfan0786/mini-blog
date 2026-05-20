@@ -1,24 +1,30 @@
-function PostForm({ title, body, setTitle, setBody, handleSubmit }) {
+function PostForm({ title, body, setTitle, setBody, handleSubmit, loading }) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center gap-5 w-full"
+    >
       <input
         type="text"
-        placeholder="Title"
-        className="border p-3 w-full rounded"
+        placeholder="Enter post title"
+        className="w-full max-w-md border border-gray-300 p-4 rounded-lg outline-none focus:ring-2 focus:ring-black"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
       <textarea
         rows="5"
-        placeholder="Body"
-        className="border p-3 w-full rounded"
+        placeholder="Enter post content"
+        className="w-full max-w-md border border-gray-300 p-4 rounded-lg outline-none resize-none focus:ring-2 focus:ring-black"
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
 
-      <button className="bg-black text-white px-5 py-2 rounded">
-        Create Post
+      <button
+        disabled={loading}
+        className="w-full max-w-md bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition disabled:bg-gray-500"
+      >
+        {loading ? "Creating..." : "Create Post"}
       </button>
     </form>
   );
