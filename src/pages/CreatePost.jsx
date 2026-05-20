@@ -11,14 +11,24 @@ function CreatePost() {
 
   const [success, setSuccess] = useState("");
 
+  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setLoading(true);
+    setError("");
 
     setSuccess("");
+
+    if (!title.trim() || !body.trim()) {
+      setError("All fields are required");
+
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await axiosInstance.post("/posts", {
@@ -38,6 +48,8 @@ function CreatePost() {
       }, 3000);
     } catch (error) {
       console.log(error);
+
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -61,6 +73,10 @@ function CreatePost() {
           <p className="text-green-600 text-center mt-5 font-semibold">
             {success}
           </p>
+        )}
+
+        {error && (
+          <p className="text-red-500 text-center mt-5 font-semibold">{error}</p>
         )}
       </div>
     </div>
