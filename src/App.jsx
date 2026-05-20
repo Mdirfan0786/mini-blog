@@ -6,32 +6,59 @@ import Dashboard from "./pages/Dashboard";
 import CreatePost from "./pages/CreatePost";
 import PostDetail from "./pages/PostDetail";
 
-import MainLayout from "./layouts/MainLayout";
-
 import ProtectedRoute from "./routes/ProtectedRoute";
+
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
-    <MainLayout>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/login" element={<Login />} />
 
-        <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route path="/create" element={<CreatePost />} />
+      <Route
+        path="/create"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <CreatePost />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route path="/posts/:id" element={<PostDetail />} />
+      <Route
+        path="/posts/:id"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <PostDetail />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
               <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </MainLayout>
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 
