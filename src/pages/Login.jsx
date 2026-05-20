@@ -23,16 +23,28 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://reqres.in/api/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://reqres.in/api/login",
+
+        {
+          email,
+          password,
+        },
+
+        {
+          headers: {
+            "x-api-key": "free_user_3DwRDgWAn7jH50RW2PDLrK2yApL",
+          },
+        },
+      );
 
       localStorage.setItem("token", res.data.token);
 
       navigate("/");
     } catch (err) {
       setError("Invalid email or password");
+
+      console.log(err);
     } finally {
       setLoading(false);
     }
